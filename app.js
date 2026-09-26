@@ -62,6 +62,8 @@ form.addEventListener("submit",async e=>{
     messages.push({role:"assistant",text:r.reply||"すみません、もう一度お願いします。"});
     localStorage.setItem("jpCoachMessages",JSON.stringify(messages));
     render();renderAnalysis(r);
+    const latestTurn=chat.querySelector(".turn:last-child");
+    if(latestTurn){latestTurn.scrollIntoView({behavior:"smooth",block:"start"});}
   }catch(err){
     analysis.innerHTML='<section><b>暂时无法连接 AI</b><p>如果是在本地运行，请确认后端已启动并设置 OPENAI_API_KEY。</p><p>'+escapeHtml(err.message)+'</p></section>';
   }finally{input.disabled=false;form.querySelector("button").disabled=false;input.focus()}
