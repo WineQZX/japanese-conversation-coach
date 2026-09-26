@@ -6,16 +6,19 @@ function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;",
 function historyAnalysis(a){
   if(!a)return "";
   const natural=a.is_natural;
+  const correction=a.correction||"原句已经很自然。";
   const issues=(a.issues||[]).slice(0,2).map(x=>'<div class="history-issue"><b>'+escapeHtml(x.point)+'</b><span>'+escapeHtml(x.explanation)+'</span></div>').join("");
-  return '<div class="history-analysis"><div class="history-title">✦ 这句话的纠错</div><div class="history-correction">'+escapeHtml(a.correction||"")+'</div>'+
-    (natural?'<div class="history-ok">✓ 原句自然，没有明显问题</div>':issues)+
-    '<details><summary>查看完整讲解</summary><div class="history-detail">'+
-    (a.issues||[]).map(x=>'<p><b>'+escapeHtml(x.point)+'</b><br>'+escapeHtml(x.explanation)+'</p>').join("")+
-    (a.grammar||[]).map(x=>'<p><b>语法：'+escapeHtml(x.form)+'</b><br>'+escapeHtml(x.explanation)+(x.example?'<br><span>'+escapeHtml(x.example)+'</span>':"")+'</p>').join("")+
-    (a.verbs||[]).map(x=>'<p><b>动词：'+escapeHtml(x.word)+'</b> · '+escapeHtml(x.meaning)+'<br>'+escapeHtml(x.usage)+(x.compare?'<br>'+escapeHtml(x.compare):"")+'</p>').join("")+
-    '</div></details></div>';
+  const grammar=(a.grammar||[]).map(x=>'<p><b>语法：'+escapeHtml(x.form)+'</b><br>'+escapeHtml(x.explanation)+(x.example?'<br><span>'+escapeHtml(x.example)+'</span>':"")+'</p>').join("");
+  const verbs=(a.verbs||[]).map(x=>'<p><b>动词：'+escapeHtml(x.word)+'</b> · '+escapeHtml(x.meaning)+'<br>'+escapeHtml(x.usage)+(x.compare?'<br>'+escapeHtml(x.compare):"")+'</p>').join("");
+  const detail=(grammar||verbs)?'<details><summary>查看语法和动词讲解</summary><div class="history-detail">'+grammar+verbs+'</div></details>':"";
+  return '<div class="history-analysis">'+
+    '<div class="history-title">✦ 本句纠错</div>'+
+    '<div class="history-label">你原来的说法</div><div class="history-original">'+escapeHtml(a.original||"")+'</div>'+
+    '<div class="history-label">更自然的说法</div><div class="history-correction">'+escapeHtml(correction)+'</div>'+
+    (natural?'<div class="history-ok">✓ 原句已经很自然</div>':issues)+
+    detail+
+    '</div>';
 }
-
 function render(){
   chat.innerHTML="";
   const visible=messages.filter(m=>m.role!=="system");
