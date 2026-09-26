@@ -1,23 +1,77 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>日语会話コーチ</title><link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#6d5dfc">
+<title>日语会話コーチ</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="app">
-<header><div><h1>日语会話コーチ</h1><p>和 AI 聊日语 · 纠错 · 语法 · 动词用法 · 继续对话</p></div><span class="status">练习中</span></header>
-<section class="toolbar">
-<label>模式 <select id="mode"><option value="daily">日常会话</option><option value="work">职场日语</option><option value="trade">外贸日语</option><option value="interview">面试练习</option></select></label>
-<label><input type="checkbox" id="showChinese" checked> 显示中文解释</label>
-<button id="clearBtn">清空对话</button>
-</section>
-<main id="chat"></main>
-<section class="panel" id="analysis">
-<h2>纠错与讲解</h2><div id="analysisContent">发送一句日语后，这里会显示：<b>哪里错 / 哪里不自然 / 更自然的说法 / 语法 / 动词用法 / 相似表达区别</b>。</div>
-</section>
-<form id="composer"><textarea id="input" rows="3" placeholder="输入日语，例如：昨日会社に行って、新しい仕事をもらいました。"></textarea><button>发送</button></form>
-<footer>第一版支持本地练习；接入 AI API 后即可真正连续对话。</footer>
+  <header class="hero">
+    <div class="brand">
+      <div class="logo">日</div>
+      <div>
+        <div class="eyebrow">JAPANESE CONVERSATION COACH</div>
+        <h1>日语会話コーチ</h1>
+        <p>和 AI 聊日语，把「会说」变成「说得自然」。</p>
+      </div>
+    </div>
+    <div class="status"><span></span> AI 练习中</div>
+  </header>
+
+  <section class="toolbar">
+    <div class="mode-wrap">
+      <span class="tool-label">练习模式</span>
+      <select id="mode">
+        <option value="daily">🌿 日常会话</option>
+        <option value="work">💼 职场日语</option>
+        <option value="trade">📦 外贸日语</option>
+        <option value="interview">🎤 面试练习</option>
+      </select>
+    </div>
+    <label class="toggle"><input type="checkbox" id="showChinese" checked><span></span> 中文解释</label>
+    <button class="ghost-btn" id="clearBtn">清空对话</button>
+  </section>
+
+  <main class="workspace">
+    <section class="chat-card">
+      <div class="section-head">
+        <div>
+          <h2>会話</h2>
+          <p>像和日本人聊天一样，直接用日语说。</p>
+        </div>
+        <div class="count" id="messageCount">0 条</div>
+      </div>
+      <div id="chat"></div>
+    </section>
+
+    <section class="panel" id="analysis">
+      <div class="section-head analysis-head">
+        <div>
+          <div class="analysis-title"><span class="spark">✦</span><h2>纠错与讲解</h2></div>
+          <p>AI 会告诉你哪里不自然，以及日本人更常怎么说。</p>
+        </div>
+      </div>
+      <div id="analysisContent" class="analysis-empty">
+        <div class="empty-icon">文</div>
+        <b>发送一句日语，开始练习</b>
+        <span>这里会显示纠错、语法、动词用法和相似表达区别。</span>
+      </div>
+    </section>
+  </main>
+
+  <form id="composer">
+    <div class="input-wrap">
+      <textarea id="input" rows="2" placeholder="输入日语，例如：昨日会社に行って、新しい仕事をもらいました。"></textarea>
+      <div class="input-tip">Enter 发送 · Shift + Enter 换行</div>
+    </div>
+    <button class="send-btn" type="submit"><span>发送</span><b>➤</b></button>
+  </form>
+
+  <footer>日语会話コーチ · 用真实对话练习自然日语</footer>
 </div>
 <script src="app.js"></script>
-</body></html>
+</body>
+</html>
