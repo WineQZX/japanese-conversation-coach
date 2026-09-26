@@ -55,7 +55,7 @@ form.addEventListener("submit",async e=>{
   e.preventDefault();
   const t=input.value.trim();if(!t)return;
   input.disabled=true;form.querySelector("button").disabled=true;
-  const userMessage={role:"user",text:t};
+  const userMessage={role:"user",text:t,original:t};
   messages.push(userMessage);render();
   analysis.innerHTML="<section>AI 正在分析：语法、自然度、动词和表达区别……</section>";
   input.value="";
